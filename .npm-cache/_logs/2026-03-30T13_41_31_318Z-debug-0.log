@@ -1,0 +1,36 @@
+0 verbose cli C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\npm\bin\npm-cli.js
+1 info using npm@11.6.2
+2 info using node@v24.11.1
+3 silly config load:file:C:\Program Files\nodejs\node_modules\npm\npmrc
+4 silly config load:file:C:\Users\shrut\Downloads\atlas\frontend\.npmrc
+5 silly config load:file:C:\Users\shrut\.npmrc
+6 silly config load:file:C:\Users\shrut\Downloads\atlas\frontend\etc\npmrc
+7 verbose title npm install
+8 verbose argv "--prefix" "frontend" "install" "--cache" ".npm-cache"
+9 verbose logfile logs-max:10 dir:C:\Users\shrut\Downloads\atlas\.npm-cache\_logs\2026-03-30T13_41_31_318Z-
+10 verbose logfile C:\Users\shrut\Downloads\atlas\.npm-cache\_logs\2026-03-30T13_41_31_318Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:2015625216 maxSize:503906304 maxEntrySize:251953152
+13 silly idealTree buildDeps
+14 silly fetch manifest react@^18.3.1
+15 silly packumentCache full:https://registry.npmjs.org/react cache-miss
+16 http fetch GET https://registry.npmjs.org/react attempt 1 failed with EACCES
+17 http fetch GET https://registry.npmjs.org/npm attempt 1 failed with EACCES
+18 http fetch GET https://registry.npmjs.org/react attempt 2 failed with EACCES
+19 http fetch GET https://registry.npmjs.org/npm attempt 2 failed with EACCES
+20 http fetch GET https://registry.npmjs.org/react attempt 3 failed with EACCES
+21 silly fetch manifest react-dom@^18.3.1
+22 silly packumentCache full:https://registry.npmjs.org/react-dom cache-miss
+23 http fetch GET https://registry.npmjs.org/npm attempt 3 failed with EACCES
+24 http fetch GET https://registry.npmjs.org/react-dom attempt 1 failed with EACCES
+25 http fetch GET https://registry.npmjs.org/react-dom attempt 2 failed with EACCES
+26 http fetch GET https://registry.npmjs.org/react-dom attempt 3 failed with EACCES
+27 silly fetch manifest react-router-dom@^6.30.0
+28 silly packumentCache full:https://registry.npmjs.org/react-router-dom cache-miss
+29 http fetch GET https://registry.npmjs.org/react-router-dom attempt 1 failed with EACCES
+30 http fetch GET https://registry.npmjs.org/react-router-dom attempt 2 failed with EACCES
+31 http fetch GET https://registry.npmjs.org/react-router-dom attempt 3 failed with EACCES
+32 silly fetch manifest @vitejs/plugin-react@^4.4.1
+33 silly packumentCache full:https://registry.npmjs.org/@vitejs%2fplugin-react cache-miss
+34 http fetch GET https://registry.npmjs.org/@vitejs%2fplugin-react attempt 1 failed with EACCES
+35 http fetch GET https://registry.npmjs.org/@vitejs%2fplugin-react attempt 2 failed with EACCES
