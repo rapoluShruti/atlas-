@@ -9,7 +9,9 @@ import RegisterPage from "../pages/RegisterPage.jsx";
 import RoomPage from "../pages/RoomPage.jsx";
 import OnboardingPage from "../pages/OnboardingPage.jsx";
 import YogaDashboardPage from "../pages/YogaDashboardPage.jsx";
+import YogaMapPage from "../pages/YogaMapPage.jsx";
 import SessionPage from "../pages/SessionPage.jsx";
+import ModelViewPage from "../pages/ModelViewPage.jsx";
 import MumbaiCommunity from "../pages/MumbaiCommunity.jsx";
 
 const router = createBrowserRouter([
@@ -47,11 +49,19 @@ const router = createBrowserRouter([
         path: "yoga",
         element: <YogaDashboardPage />,
       },
-       {
+      {
+        path: "map",
+        element: <YogaMapPage />,
+      },
+      {
         path: "communityy",
         element: <MumbaiCommunity />,
       },
       
+      {
+        path: "model/:poseName/:sessionId/:poseIndex",
+        element: <ModelViewPage />,
+      },
       {
         path: "session/:day",
         element: <SessionPage />,

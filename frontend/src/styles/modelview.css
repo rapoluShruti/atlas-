@@ -1,0 +1,64 @@
+.modelview-bg {
+  background: #181c1f;
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modelview-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+}
+.modelview-canvas {
+  width: 600px;
+  height: 500px;
+  background: #222;
+  border-radius: 2rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modelview-info {
+  color: #fff;
+  text-align: center;
+}
+.modelview-pose {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+.modelview-timer {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+.modelview-controls button {
+  background: linear-gradient(90deg, #22c55e, #2563eb);
+  color: #fff;
+  border: none;
+  border-radius: 1rem;
+  padding: 1rem 2.5rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0 1rem;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+.modelview-controls button:disabled {
+  background: #444;
+  color: #bbb;
+  cursor: not-allowed;
+}
+.modelview-loading {
+  color: #fff;
+  font-size: 1.5rem;
+  text-align: center;
+  margin-top: 2rem;
+}

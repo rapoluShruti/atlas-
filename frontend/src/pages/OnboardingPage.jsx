@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { apiClient } from "../config/api.js";
 import { useAuth } from "../context/AuthContext.jsx";
 
 const OnboardingPage = () => {
@@ -17,8 +17,8 @@ const OnboardingPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/api/create-plan", {
-        userId: user.id,
+      await apiClient.post("/create-plan", {
+        userId: user._id,
         ...formData,
       });
       navigate("/dashboard/yoga");
@@ -32,11 +32,11 @@ const OnboardingPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-white flex items-center justify-center p-4">
-      <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 border border-orange-100">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-white flex items-center justify-center p-4">
+      <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 border border-green-100">
         <div className="mb-8">
           <div className="text-center mb-6">
-            <div className="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
               <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
               </svg>
@@ -55,7 +55,7 @@ const OnboardingPage = () => {
               name="motive"
               value={formData.motive}
               onChange={handleChange}
-              className="w-full px-4 py-3 border-2 border-orange-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 bg-white"
+              className="w-full px-4 py-3 border-2 border-green-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200 bg-white"
               required
             >
               <option value="">Select your goal</option>
@@ -75,7 +75,7 @@ const OnboardingPage = () => {
               name="minutesPerDay"
               value={formData.minutesPerDay}
               onChange={handleChange}
-              className="w-full px-4 py-3 border-2 border-orange-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 bg-white"
+              className="w-full px-4 py-3 border-2 border-green-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200 bg-white"
               placeholder="e.g., 30"
               required
             />
@@ -90,7 +90,7 @@ const OnboardingPage = () => {
               name="daysPerWeek"
               value={formData.daysPerWeek}
               onChange={handleChange}
-              className="w-full px-4 py-3 border-2 border-orange-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 bg-white"
+              className="w-full px-4 py-3 border-2 border-green-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200 bg-white"
               placeholder="e.g., 3"
               min="1"
               max="7"
@@ -150,7 +150,7 @@ const OnboardingPage = () => {
 
           <button
             type="submit"
-            className="w-full bg-orange-500 text-white py-4 px-6 rounded-xl hover:bg-orange-600 transition-all duration-200 font-semibold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+            className="w-full bg-green-500 text-white py-4 px-6 rounded-xl hover:bg-green-600 transition-all duration-200 font-semibold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
           >
             🚀 Create My Plan
           </button>

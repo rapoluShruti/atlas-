@@ -8,9 +8,9 @@ const ProtectedLayout = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-orange-50 to-white flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-green-50 to-white flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500 mx-auto mb-4"></div>
           <p className="text-gray-600">Loading your dashboard...</p>
         </div>
       </div>
@@ -22,35 +22,41 @@ const ProtectedLayout = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-white">
-      <header className="bg-white shadow-lg border-b border-orange-100">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-white">
+      <header className="bg-white shadow-lg border-b border-green-100 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
               <Link className="flex items-center space-x-2" to="/">
-                <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center">
+                <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
                   <span className="text-white font-bold text-lg">🧘</span>
                 </div>
-                <span className="text-xl font-bold text-gray-800">YogaPlanner</span>
+                <span className="text-xl font-bold text-gray-800">Atlas Yoga</span>
               </Link>
             </div>
 
             <nav className="hidden md:flex space-x-8">
               <Link
                 to="/dashboard/yoga"
-                className="text-gray-700 hover:text-orange-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                className="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
               >
                 🧘 My Plan
               </Link>
               <Link
+                to="/dashboard/map"
+                className="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+              >
+                🗺️ Find Studios
+              </Link>
+              <Link
                 to="/dashboard/communityy"
-                className="text-gray-700 hover:text-orange-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                className="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
               >
                 Community
               </Link>
               <Link
                 to="/dashboard/onboarding"
-                className="text-gray-700 hover:text-orange-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                className="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
               >
                 🎯 Onboarding
               </Link>
@@ -58,8 +64,8 @@ const ProtectedLayout = () => {
 
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center">
-                  <span className="text-orange-600 font-semibold text-sm">
+                <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                  <span className="text-green-600 font-semibold text-sm">
                     {user?.name?.charAt(0)?.toUpperCase() || "U"}
                   </span>
                 </div>
@@ -70,7 +76,7 @@ const ProtectedLayout = () => {
 
               <div className="flex items-center space-x-2">
                 <button
-                  className="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-all duration-200 font-medium text-sm shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+                  className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-all duration-200 font-medium text-sm shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
                   onClick={() => navigate(`/dashboard/room/${Math.random().toString(36).substr(2, 9)}`)}
                 >
                   📹 Create Room

@@ -1,122 +1,98 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import YogaTrainer from "./YogaTrainer.jsx";
 import { useAuth } from "../context/AuthContext.jsx";
+import { apiClient } from "../config/api.js";
+
+const resolveInitialPose = (poses, startIndex) => {
+  const selectedPose = poses[startIndex]?.pose || poses[0]?.pose || "";
+  const normalized = selectedPose.trim().toLowerCase();
+
+  if (normalized === "tree pose" || normalized === "tree") {
+    return "Tree Pose";
+  }
+
+  if (
+    normalized === "warrior ii pose" ||
+    normalized === "warrior 2" ||
+    normalized === "warrior ii"
+  ) {
+    return "Warrior II Pose";
+  }
+
+  return "T Pose";
+};
 
 const SessionPage = () => {
   const { day } = useParams();
   const { user } = useAuth();
   const navigate = useNavigate();
-  const [plan, setPlan] = useState(null);
-  const [currentPoseIndex, setCurrentPoseIndex] = useState(0);
-  const [timeLeft, setTimeLeft] = useState(0);
-  const [isActive, setIsActive] = useState(false);
+  const [searchParams] = useSearchParams();
+  const [poses, setPoses] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchPlan = async () => {
+      if (!user?._id) {
+        return;
+      }
+
       try {
-        const response = await axios.get(`http://localhost:5000/api/get-plan/${user.id}`);
-        setPlan(response.data[day]);
-        if (response.data[day] && response.data[day][0]) {
-          setTimeLeft(response.data[day][0].duration * 60); // Convert to seconds
-        }
+        const response = await apiClient.get(`/get-plan/${user._id}`);
+        const plan = response.data || {};
+        setPoses(plan[day] || []);
       } catch (error) {
         console.error("Error fetching plan:", error);
+        setPoses([]);
+      } finally {
+        setLoading(false);
       }
     };
+
     fetchPlan();
-  }, [user.id, day]);
+  }, [day, user?._id]);
 
-  useEffect(() => {
-    let interval = null;
-    if (isActive && timeLeft > 0) {
-      interval = setInterval(() => {
-        setTimeLeft((timeLeft) => timeLeft - 1);
-      }, 1000);
-    } else if (timeLeft === 0 && isActive) {
-      nextPose();
-    }
-    return () => clearInterval(interval);
-  }, [isActive, timeLeft]);
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-green-50 to-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading your yoga trainer...</p>
+        </div>
+      </div>
+    );
+  }
 
-  const startTimer = () => {
-    setIsActive(true);
-  };
-
-  const pauseTimer = () => {
-    setIsActive(false);
-  };
-
-  const nextPose = () => {
-    if (currentPoseIndex < plan.length - 1) {
-      setCurrentPoseIndex(currentPoseIndex + 1);
-      setTimeLeft(plan[currentPoseIndex + 1].duration * 60);
-      setIsActive(false);
-    } else {
-      // Session complete
-      alert("Session complete!");
-      navigate("/dashboard/yoga");
-    }
-  };
-
-  const formatTime = (seconds) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
-  };
-
-  if (!plan) return <div className="min-h-screen flex items-center justify-center bg-white">Loading...</div>;
-
-  const currentPose = plan[currentPoseIndex];
+  const requestedStartIndex = Number.parseInt(searchParams.get("start") || "0", 10);
+  const safeStartIndex = Number.isNaN(requestedStartIndex) ? 0 : requestedStartIndex;
+  const initialPose = resolveInitialPose(poses, safeStartIndex);
+  const sessionTitle = day ? day.replace("day", "Day ") : "Session";
 
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center justify-center p-4">
-      <div className="max-w-2xl w-full text-center">
-        <h1 className="text-3xl font-bold text-gray-800 mb-8">Yoga Session</h1>
-
-        <div className="bg-gray-50 p-8 rounded-lg shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold mb-4">{currentPose.pose}</h2>
-          <div className="text-6xl font-mono mb-4">{formatTime(timeLeft)}</div>
-          <p className="text-lg text-gray-600 mb-6">
-            Hold this pose for {currentPose.duration} minutes
-          </p>
-
-          <div className="flex justify-center space-x-4">
-            {!isActive ? (
-              <button
-                onClick={startTimer}
-                className="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition duration-200"
-              >
-                Start
-              </button>
-            ) : (
-              <button
-                onClick={pauseTimer}
-                className="bg-yellow-500 text-white px-6 py-3 rounded-lg hover:bg-yellow-600 transition duration-200"
-              >
-                Pause
-              </button>
-            )}
-
-            <button
-              onClick={nextPose}
-              className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition duration-200"
-            >
-              Next Pose
-            </button>
+    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-orange-50 p-4 md:p-6">
+      <div className="max-w-6xl mx-auto">
+        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between mb-6">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-green-700">
+              Yoga Trainer
+            </p>
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
+              {sessionTitle}
+            </h1>
+            <p className="text-gray-600 mt-2">
+              Start Session now opens the same trainer you use inside a room.
+            </p>
           </div>
+
+          <button
+            onClick={() => navigate("/dashboard/yoga")}
+            className="self-start md:self-auto rounded-2xl bg-white px-5 py-3 text-gray-800 font-semibold shadow-sm border border-green-100 hover:border-green-200"
+          >
+            Back to Yoga Plan
+          </button>
         </div>
 
-        <div className="text-sm text-gray-500">
-          Pose {currentPoseIndex + 1} of {plan.length}
-        </div>
-
-        <button
-          onClick={() => navigate("/dashboard/yoga")}
-          className="mt-4 text-gray-600 hover:text-gray-800"
-        >
-          Back to Dashboard
-        </button>
+        <YogaTrainer initialPose={initialPose} />
       </div>
     </div>
   );

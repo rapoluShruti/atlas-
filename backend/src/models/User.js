@@ -20,6 +20,10 @@ const userSchema = new mongoose.Schema(
       required: true,
       minlength: 6,
     },
+    yogaPlan: {
+      type: Object,
+      default: null,
+    },
   },
   {
     timestamps: true,
